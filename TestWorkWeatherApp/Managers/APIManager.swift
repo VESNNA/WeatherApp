@@ -45,7 +45,7 @@ extension APIManager {
                 let userInfo = [
                     NSLocalizedDescriptionKey: NSLocalizedString("Missing HTTP Response", comment: "")
                 ]
-                let error = NSError(domain: EXMPLNetworkingErrorDomain, code: 100, userInfo: userInfo)
+                let error = NSError(domain: SearchingResponseError, code: 100, userInfo: userInfo)
                 
                 completionHandler(nil, nil, error)
                 return
@@ -57,15 +57,13 @@ extension APIManager {
                 }
             } else {
                 switch HTTPResponse.statusCode {
-                case 200:
+                case 200, 404:
                     do {
                         let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject]
                         completionHandler(json, HTTPResponse, nil)
                     } catch let error as NSError {
                         completionHandler(nil, HTTPResponse, error)
                     }
-                
-                case 404: print("City cannot be found")
                 default:
                     print("We have got response status: \(HTTPResponse.statusCode)")
                 }
@@ -88,7 +86,7 @@ extension APIManager {
                 if let value = parse(json) {
                     completionHandler(.Success(value))
                 } else {
-                    let error = NSError(domain: EXMPLNetworkingErrorDomain, code: 101, userInfo: nil)
+                    let error = NSError(domain: SearchingResponseError, code: 404, userInfo: nil)
                     completionHandler(.Failure(error))
                 }
                 

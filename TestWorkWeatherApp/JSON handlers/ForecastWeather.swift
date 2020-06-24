@@ -101,3 +101,9 @@ extension ForecastWeather: JSONDecodable {
     }
 }
 
+extension ForecastWeather {
+    var locationString: String {
+        return "\(city), \(country)"
+    }
+}
+

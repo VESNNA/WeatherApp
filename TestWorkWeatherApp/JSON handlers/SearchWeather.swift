@@ -13,6 +13,7 @@ struct SearchWeather {
     let id: Int
     let city: String
     let country: String
+    let code: Int
 }
 
 extension SearchWeather: JSONDecodable {
@@ -25,7 +26,9 @@ extension SearchWeather: JSONDecodable {
             let id = JSON["id"] as? Int,
             
             let sys = JSON["sys"] as? NSDictionary,
-            let country = sys["country"] as? String
+            let country = sys["country"] as? String,
+        
+        let code = JSON["cod"] as? Int
             
             else {
                 print("JSON proceccing error")
@@ -36,6 +39,7 @@ extension SearchWeather: JSONDecodable {
         self.city = city
         self.id = id
         self.country = country
+        self.code = code
     }
 }
 
@@ -43,6 +47,10 @@ extension SearchWeather {
    
     var temperatureString: String {
         return "\(Int(temperature))˚C"
+    }
+    
+    var locationString: String {
+        return "\(city), \(country)"
     }
     
 }

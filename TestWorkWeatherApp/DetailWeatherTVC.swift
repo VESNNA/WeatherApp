@@ -9,9 +9,11 @@
 import UIKit
 
 class DetailWeatherTVC: UITableViewController {
+    
+    var forecast: ForecastWeather!
 
     //Current weather section
-    @IBOutlet weak var locationLbl: UIView!
+    @IBOutlet weak var locationLbl: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tempLbl: UILabel!
     @IBOutlet weak var pressureLbl: UILabel!
@@ -29,84 +31,65 @@ class DetailWeatherTVC: UITableViewController {
     @IBOutlet weak var date5Lbl: UILabel!
     @IBOutlet weak var forecast5Lbl: UILabel!
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        DispatchQueue.global(qos: .userInitiated).sync {
+            getForecast(id: ActiveCitiesListTVC.sharedId)
+        }
+        
+    }
+    
+    func updateUI(forecast: ForecastWeather) {
+        
+        locationLbl.text = forecast.locationString
+        tempLbl.text = "\(String(forecast.forecastData[0].temperature))˚C"
+        pressureLbl.text = "\(String(forecast.pressure))mm"
+        humidityLbl.text = "\(String(forecast.humidity))%"
+        
+        forecast1Lbl.text = String(forecast.forecastData[0].temperature)
+        forecast2Lbl.text = String(forecast.forecastData[1].temperature)
+        forecast3Lbl.text = String(forecast.forecastData[2].temperature)
+        forecast4Lbl.text = String(forecast.forecastData[3].temperature)
+        forecast5Lbl.text = String(forecast.forecastData[4].temperature)
+        
+        date1Lbl.text = forecast.forecastData[0].date
+        date2Lbl.text = forecast.forecastData[1].date
+        date3Lbl.text = forecast.forecastData[2].date
+        date4Lbl.text = forecast.forecastData[3].date
+        date5Lbl.text = forecast.forecastData[4].date
+        
+        
+    }
+
+    func getForecast(id: Int) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            ActiveCitiesListTVC.weatherManager.fetchCurrentWeatherForecast(id: id) { (result) in
+                
+                switch result {
+                case .Success(let currentWeather):
+                    
+                    self.updateUI(forecast: currentWeather)
+                    
+                case .Failure(let error as NSError):
+                    
+                    let alertController = UIAlertController(title: "Unable to get data ", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    //MARK: - Navigation
+    
     @IBAction func backToList(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
-    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

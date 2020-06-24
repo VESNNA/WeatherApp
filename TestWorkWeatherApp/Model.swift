@@ -6,9 +6,22 @@
 //  Copyright © 2020 Nikita Vesna. All rights reserved.
 //
 
+
+struct Cities {
+    let name: String
+    let country: String
+    let id: Int
+}
+
+struct Coordinates {
+    let latitude: Double
+    let longitude: Double
+}
+
 /*
 import RealmSwift
 
+ 
 struct Cities {
 
     @objc dynamic var name: String = ""

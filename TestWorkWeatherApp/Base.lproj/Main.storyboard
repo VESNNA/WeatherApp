@@ -6,28 +6,31 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--List Active CitiesTVC-->
+        <!--Current Weather-->
         <scene sceneID="5y9-hA-vbk">
             <objects>
-                <tableViewController id="Hh1-gc-SOQ" customClass="ListActiveCitiesTVC" customModule="TestWorkWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Hh1-gc-SOQ" customClass="ActiveCitiesListTVC" customModule="TestWorkWeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p7H-AS-8bz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Enter city name,country" showsSearchResultsButton="YES" id="DaU-1h-clf">
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Enter city name,country" showsCancelButton="YES" id="DaU-1h-clf">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="words" enablesReturnKeyAutomatically="YES" textContentType="address-level2"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                            </scopeButtonTitles>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityCell" rowHeight="75" id="h7P-eA-dWH">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityCell" rowHeight="75" id="h7P-eA-dWH" customClass="ActiveCitiesListCell" customModule="TestWorkWeatherApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="84" width="414" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h7P-eA-dWH" id="GsT-aK-VgO">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cityLbl" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1GO-uU-3BI">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cityNameLbl" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1GO-uU-3BI">
                                             <rect key="frame" x="20" y="0.0" width="205" height="75"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="205" id="v4t-Te-imP"/>
@@ -57,7 +60,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="3f8-J0-oVh" kind="presentation" identifier="detailSegue" id="BZt-Nd-cL6"/>
+                                    <outlet property="cityNameLbl" destination="1GO-uU-3BI" id="reJ-eh-teM"/>
+                                    <outlet property="cityTempLbl" destination="e5h-Gy-dEp" id="Lqm-bL-aBJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -66,9 +70,16 @@
                             <outlet property="delegate" destination="Hh1-gc-SOQ" id="sTG-wz-yyi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Q6S-zJ-UbZ"/>
+                    <navigationItem key="navigationItem" title="Current Weather" id="Q6S-zJ-UbZ">
+                        <barButtonItem key="rightBarButtonItem" title="Refresh" image="gobackward" catalog="system" id="zmS-FO-hjY">
+                            <connections>
+                                <action selector="refreshBtnPressed:" destination="Hh1-gc-SOQ" id="iP1-DA-OAJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="DaU-1h-clf" id="cFJ-IG-vmS"/>
+                        <segue destination="6qZ-cl-gHA" kind="presentation" identifier="detailSegue" id="xod-yz-JRZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syn-cn-hnT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -141,13 +152,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pressureLbl" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2B-Ap-8wQ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="117" height="55"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="119.66666666666667" height="55"/>
                                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="24"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tempLbl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UaN-d7-IMk">
-                                                            <rect key="frame" x="146.66666666666666" y="0.0" width="118.33333333333334" height="55"/>
+                                                            <rect key="frame" x="148" y="0.0" width="118.33333333333331" height="55"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="118.33333333333331" id="4AG-oN-aKv"/>
                                                             </constraints>
@@ -162,6 +173,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="UaN-d7-IMk" firstAttribute="centerX" secondItem="kLc-7A-nvv" secondAttribute="centerX" id="6fg-AK-juN"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -375,7 +389,6 @@
                                 <action selector="backToList:" destination="6qZ-cl-gHA" id="179-U3-pZ4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Refresh" image="gobackward" catalog="system" id="zmS-FO-hjY"/>
                     </navigationItem>
                     <connections>
                         <outlet property="date1Lbl" destination="M5t-Ro-9JG" id="j98-FW-OOo"/>
@@ -390,32 +403,14 @@
                         <outlet property="forecast5Lbl" destination="8xI-wL-qZu" id="NF4-QT-LHE"/>
                         <outlet property="humidityLbl" destination="xkm-iY-9XB" id="To1-K0-09P"/>
                         <outlet property="imageView" destination="k9j-ck-d8c" id="4HI-pJ-CvW"/>
-                        <outlet property="locationLbl" destination="jP0-H5-XbZ" id="RkP-6r-SqU"/>
+                        <outlet property="locationLbl" destination="s07-0P-d4q" id="ma7-Dr-4mB"/>
                         <outlet property="pressureLbl" destination="u2B-Ap-8wQ" id="dBr-5a-oXJ"/>
                         <outlet property="tempLbl" destination="UaN-d7-IMk" id="EyA-Vs-plt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UEf-ol-h3V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1213.0434782608697" y="851.08695652173924"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="PWZ-LR-BO0">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3f8-J0-oVh" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="URk-Kp-ZH4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="6qZ-cl-gHA" kind="relationship" relationship="rootViewController" id="Vey-8v-Aam"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GdM-ze-XzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="116" y="852"/>
+            <point key="canvasLocation" x="1004" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="INg-me-mE1">

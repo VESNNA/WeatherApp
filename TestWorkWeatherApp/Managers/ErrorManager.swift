@@ -8,6 +8,6 @@
 
 import Foundation
 
-public let EXMPLNetworkingErrorDomain = "Example.Domain"
+public let SearchingResponseError = "Searching"
 public let MissingHTTPResponseError = 100
 public let UnexpectedResponseError = 101
