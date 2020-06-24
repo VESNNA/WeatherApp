@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		5BF55DB924A2955A00EB3FAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF55DB824A2955A00EB3FAC /* AppDelegate.swift */; };
 		5BF55DBB24A2955A00EB3FAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF55DBA24A2955A00EB3FAC /* SceneDelegate.swift */; };
-		5BF55DBD24A2955A00EB3FAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF55DBC24A2955A00EB3FAC /* ViewController.swift */; };
 		5BF55DC024A2955A00EB3FAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BF55DBE24A2955A00EB3FAC /* Main.storyboard */; };
 		5BF55DC224A2956200EB3FAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BF55DC124A2956200EB3FAC /* Assets.xcassets */; };
 		5BF55DC524A2956200EB3FAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BF55DC324A2956200EB3FAC /* LaunchScreen.storyboard */; };
+		5BF55DCD24A29CA400EB3FAC /* ListActiveCitiesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF55DCC24A29CA400EB3FAC /* ListActiveCitiesTVC.swift */; };
+		5BF55DCF24A29CBA00EB3FAC /* DetailWeatherTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF55DCE24A29CBA00EB3FAC /* DetailWeatherTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5BF55DB524A2955A00EB3FAC /* TestWorkWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestWorkWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF55DB824A2955A00EB3FAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5BF55DBA24A2955A00EB3FAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5BF55DBC24A2955A00EB3FAC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5BF55DBF24A2955A00EB3FAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5BF55DC124A2956200EB3FAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5BF55DC424A2956200EB3FAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BF55DC624A2956200EB3FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5BF55DCC24A29CA400EB3FAC /* ListActiveCitiesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListActiveCitiesTVC.swift; sourceTree = "<group>"; };
+		5BF55DCE24A29CBA00EB3FAC /* DetailWeatherTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +60,8 @@
 			children = (
 				5BF55DB824A2955A00EB3FAC /* AppDelegate.swift */,
 				5BF55DBA24A2955A00EB3FAC /* SceneDelegate.swift */,
-				5BF55DBC24A2955A00EB3FAC /* ViewController.swift */,
+				5BF55DCC24A29CA400EB3FAC /* ListActiveCitiesTVC.swift */,
+				5BF55DCE24A29CBA00EB3FAC /* DetailWeatherTVC.swift */,
 				5BF55DBE24A2955A00EB3FAC /* Main.storyboard */,
 				5BF55DC124A2956200EB3FAC /* Assets.xcassets */,
 				5BF55DC324A2956200EB3FAC /* LaunchScreen.storyboard */,
@@ -138,9 +141,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BF55DBD24A2955A00EB3FAC /* ViewController.swift in Sources */,
 				5BF55DB924A2955A00EB3FAC /* AppDelegate.swift in Sources */,
+				5BF55DCF24A29CBA00EB3FAC /* DetailWeatherTVC.swift in Sources */,
 				5BF55DBB24A2955A00EB3FAC /* SceneDelegate.swift in Sources */,
+				5BF55DCD24A29CA400EB3FAC /* ListActiveCitiesTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
