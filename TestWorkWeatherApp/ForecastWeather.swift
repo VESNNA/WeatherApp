@@ -10,12 +10,9 @@ import Foundation
 
 struct ForecastWeather {
     
-    /*
     let feelsLike: Double
     let humidity: Double
     let pressure: Double
-    let description: String
-    */
     
     let id: Int
     let city: String
@@ -41,45 +38,53 @@ extension ForecastWeather: JSONDecodable {
             let city = cityData["name"] as? String,
             let country = cityData["country"] as? String,
             
+            
+            
             let list = JSON["list"] as? NSArray,
-            //var forecastData = ForecastData(),
+            
+            //TODO Refactor to cycles
             
             //Day 1
             let day1 = list[0] as? NSDictionary,
-            let main = day1["main"] as? NSDictionary,
-            let temperature = main["temp"] as? Double,
-            let date = day1["dt_txt"] as? String,
+            let main1 = day1["main"] as? NSDictionary,
+            let temperature1 = main1["temp"] as? Double,
+            let date1 = day1["dt_txt"] as? String,
+            let feelsLike = main1["feels_like"] as? Double,
+            let humidity = main1["humidity"] as? Double,
+            let pressure = main1["pressure"] as? Double,
             
-            let forecastData: [ForecastData] = [ForecastData(temperature: temperature, date: date)]
-            
-            /*
             //Day2
-            let day2 = list[index+modifier] as? NSDictionary,
-            let main = day2["main"] as? NSDictionary,
-            let temperature = main["temp"] as? Double,
-            let forecastDate = day2["dt_txt"] as? String,
+            let day2 = list[8] as? NSDictionary,
+            let main2 = day2["main"] as? NSDictionary,
+            let temperature2 = main2["temp"] as? Double,
+            let date2 = day2["dt_txt"] as? String,
             
             //Day3
-            let day3 = list[index+2*modifier] as? NSDictionary,
-            let main = day3["main"] as? NSDictionary,
-            let temperature = main["temp"] as? Double,
-            let forecastDate = day3["dt_txt"] as? String,
+            let day3 = list[16] as? NSDictionary,
+            let main3 = day3["main"] as? NSDictionary,
+            let temperature3 = main3["temp"] as? Double,
+            let date3 = day3["dt_txt"] as? String,
             //Day4
-            let day4 = list[index+3*modifier] as? NSDictionary,
-            let main = day4["main"] as? NSDictionary,
-            let temperature = main["temp"] as? Double,
-            let forecastDate = day4["dt_txt"] as? String,
+            let day4 = list[24] as? NSDictionary,
+            let main4 = day4["main"] as? NSDictionary,
+            let temperature4 = main4["temp"] as? Double,
+            let date4 = day4["dt_txt"] as? String,
             //Day5
-            let day5 = list[index+4*modifier] as? NSDictionary,
-            let main = day5["main"] as? NSDictionary,
-            let temperature = main["temp"] as? Double,
-            let forecastDate = day5["dt_txt"] as? String,
-            */
-        
-        
-        else {
-            print("JSON proceccing error")
-            return nil
+            let day5 = list[32] as? NSDictionary,
+            let main5 = day5["main"] as? NSDictionary,
+            let temperature5 = main5["temp"] as? Double,
+            let date5 = day5["dt_txt"] as? String,
+            
+            let forecastData: [ForecastData] = [ForecastData(temperature: temperature1, date: date1),
+                                                ForecastData(temperature: temperature2, date: date2),
+                                                ForecastData(temperature: temperature3, date: date3),
+                                                ForecastData(temperature: temperature4, date: date4),
+                                                ForecastData(temperature: temperature5, date: date5)]
+            
+            
+            else {
+                print("JSON proceccing error")
+                return nil
         }
         
         
@@ -89,16 +94,9 @@ extension ForecastWeather: JSONDecodable {
         
         self.forecastData = forecastData
         
-        /*
-         self.temperature = temperature
-         self.feelsLike = feelsLike
-         self.humidity = humidity
-         self.pressure = pressure
-         self.city = city
-         self.id = id
-         self.country = country
-         */
-        
+        self.feelsLike = feelsLike
+        self.humidity = humidity
+        self.pressure = pressure
         
     }
 }
