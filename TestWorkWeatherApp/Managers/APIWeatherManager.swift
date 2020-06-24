@@ -94,7 +94,7 @@ final class APIWeatherManager: APIManager {
         }, completionHandler: completionHandler)
     }
     
-    func fetchCurrentWeatherForecast(id: Int, completionHandler: @escaping (APIResult<ForecastWeater>) -> Void) {
+    func fetchCurrentWeatherForecast(id: Int, completionHandler: @escaping (APIResult<ForecastWeather>) -> Void) {
         let request = ForecastType.Forecast(apiKey: self.apiKey, id: id).request
         
         fetch(request: request, parse: { (json) -> ForecastWeather? in
