@@ -67,6 +67,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Q6S-zJ-UbZ"/>
+                    <connections>
+                        <outlet property="searchBar" destination="DaU-1h-clf" id="cFJ-IG-vmS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syn-cn-hnT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -374,6 +377,23 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Refresh" image="gobackward" catalog="system" id="zmS-FO-hjY"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="date1Lbl" destination="M5t-Ro-9JG" id="j98-FW-OOo"/>
+                        <outlet property="date2Lbl" destination="eE8-ni-i82" id="1x6-dd-bnC"/>
+                        <outlet property="date3Lbl" destination="tYE-gC-a1C" id="xXx-6U-Au5"/>
+                        <outlet property="date4Lbl" destination="ks0-JF-Txh" id="j8J-nr-vy0"/>
+                        <outlet property="date5Lbl" destination="Kjc-og-Ncw" id="Prh-CE-WXR"/>
+                        <outlet property="forecast1Lbl" destination="LUv-j1-eBs" id="5PS-9F-FuV"/>
+                        <outlet property="forecast2Lbl" destination="E8x-T8-JLQ" id="FNB-qZ-f6c"/>
+                        <outlet property="forecast3Lbl" destination="SWk-ZQ-x4K" id="afY-0i-lhm"/>
+                        <outlet property="forecast4Lbl" destination="BFw-Ho-Kql" id="h3i-tW-rfO"/>
+                        <outlet property="forecast5Lbl" destination="8xI-wL-qZu" id="NF4-QT-LHE"/>
+                        <outlet property="humidityLbl" destination="xkm-iY-9XB" id="To1-K0-09P"/>
+                        <outlet property="imageView" destination="k9j-ck-d8c" id="4HI-pJ-CvW"/>
+                        <outlet property="locationLbl" destination="jP0-H5-XbZ" id="RkP-6r-SqU"/>
+                        <outlet property="pressureLbl" destination="u2B-Ap-8wQ" id="dBr-5a-oXJ"/>
+                        <outlet property="tempLbl" destination="UaN-d7-IMk" id="EyA-Vs-plt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UEf-ol-h3V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

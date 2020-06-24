@@ -10,6 +10,25 @@ import UIKit
 
 class DetailWeatherTVC: UITableViewController {
 
+    //Current weather section
+    @IBOutlet weak var locationLbl: UIView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var tempLbl: UILabel!
+    @IBOutlet weak var pressureLbl: UILabel!
+    @IBOutlet weak var humidityLbl: UILabel!
+    
+    //5-day forecast section
+    @IBOutlet weak var date1Lbl: UILabel!
+    @IBOutlet weak var forecast1Lbl: UILabel!
+    @IBOutlet weak var date2Lbl: UILabel!
+    @IBOutlet weak var forecast2Lbl: UILabel!
+    @IBOutlet weak var date3Lbl: UILabel!
+    @IBOutlet weak var forecast3Lbl: UILabel!
+    @IBOutlet weak var date4Lbl: UILabel!
+    @IBOutlet weak var forecast4Lbl: UILabel!
+    @IBOutlet weak var date5Lbl: UILabel!
+    @IBOutlet weak var forecast5Lbl: UILabel!
+    
     @IBAction func backToList(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }

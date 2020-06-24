@@ -10,6 +10,8 @@ import UIKit
 
 class ListActiveCitiesTVC: UITableViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
