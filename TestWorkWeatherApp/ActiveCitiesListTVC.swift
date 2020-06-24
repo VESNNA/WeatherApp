@@ -11,8 +11,6 @@ import CoreLocation
 
 class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
     
-    //var sendingCityID: Int!
-    
     var citiesList: [Cities] = [Cities(name: "San Francisco", country: "US", id: 5391959),
                                 Cities(name: "Kiev", country: "UA", id: 703448),
                                 Cities(name: "Belgorod", country: "RU", id: 578072),
@@ -21,7 +19,8 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
     //var citiesList: Results<Cities>!
     
     static let weatherManager = APIWeatherManager(apiKey: "8ed4a42d3c54264f52124709334fd797")
-    var myTimer: Timer!
+    
+    var refreshTimer: Timer!
     
     
     static var sharedId: Int!
@@ -44,12 +43,11 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
         checkLocationServices()
         
         
+        setupTimer()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        //TODO Loading weather to list with short fetch request
-        
         
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
             let location = self.getLocation()
@@ -129,8 +127,25 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
     }
     
     
+    //MARK: - Autorefreshing
     
-    // MARK: - Fetching Data
+    func setupTimer() {
+        refreshTimer = Timer(timeInterval: 60*60, target: self, selector: #selector(refreshEveryHour), userInfo: nil, repeats: true)
+        RunLoop.main.add(refreshTimer, forMode: .default)
+    }
+    
+    @objc func refreshEveryHour() {
+        resetTimer()
+        tableView.reloadData()
+    }
+    
+    func resetTimer() {
+        refreshTimer.invalidate()
+        refreshTimer = nil
+        setupTimer()
+    }
+    
+    //MARK: - Fetching Data
     
     //TODO Activity inicator on downloading
     /*

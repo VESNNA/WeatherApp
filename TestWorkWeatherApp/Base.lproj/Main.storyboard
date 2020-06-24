@@ -110,11 +110,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2m-6C-vJz">
+                                                    <rect key="frame" x="20" y="11" width="53" height="53"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" secondItem="C2m-6C-vJz" secondAttribute="width" multiplier="1:1" id="YNp-1s-ejO"/>
+                                                    </constraints>
+                                                    <state key="normal" image="list.dash" catalog="system"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="s07-0P-d4q" firstAttribute="top" secondItem="jP0-H5-XbZ" secondAttribute="topMargin" id="BGV-ey-RbG"/>
                                                 <constraint firstItem="s07-0P-d4q" firstAttribute="leading" secondItem="jP0-H5-XbZ" secondAttribute="leadingMargin" id="BRP-dm-FJP"/>
+                                                <constraint firstItem="C2m-6C-vJz" firstAttribute="top" secondItem="jP0-H5-XbZ" secondAttribute="topMargin" id="C67-yf-PNO"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="s07-0P-d4q" secondAttribute="trailing" id="H7T-To-pyR"/>
+                                                <constraint firstItem="C2m-6C-vJz" firstAttribute="bottom" secondItem="jP0-H5-XbZ" secondAttribute="bottomMargin" id="JkL-7R-lKe"/>
+                                                <constraint firstItem="C2m-6C-vJz" firstAttribute="leading" secondItem="jP0-H5-XbZ" secondAttribute="leadingMargin" id="WYe-lA-u3g"/>
                                                 <constraint firstItem="s07-0P-d4q" firstAttribute="bottom" secondItem="jP0-H5-XbZ" secondAttribute="bottomMargin" id="kFO-Oq-2Y1"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -383,13 +393,9 @@
                             <outlet property="delegate" destination="6qZ-cl-gHA" id="2NV-N4-Lqp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Current Weather" id="n19-Fb-nkj">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" image="list.dash" catalog="system" id="WZq-dB-fbA">
-                            <connections>
-                                <action selector="backToList:" destination="6qZ-cl-gHA" id="179-U3-pZ4"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Current Weather" id="n19-Fb-nkj"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="date1Lbl" destination="M5t-Ro-9JG" id="j98-FW-OOo"/>
                         <outlet property="date2Lbl" destination="eE8-ni-i82" id="1x6-dd-bnC"/>
@@ -410,7 +416,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UEf-ol-h3V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="125"/>
+            <point key="canvasLocation" x="1002.8985507246377" y="124.72826086956523"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="INg-me-mE1">
