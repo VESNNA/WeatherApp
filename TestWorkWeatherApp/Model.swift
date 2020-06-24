@@ -6,27 +6,14 @@
 //  Copyright © 2020 Nikita Vesna. All rights reserved.
 //
 
-
-struct Cities {
-    let name: String
-    let country: String
-    let id: Int
-}
-
-struct Coordinates {
-    let latitude: Double
-    let longitude: Double
-}
-
-/*
 import RealmSwift
 
  
-struct Cities {
+class Cities: Object {
 
-    @objc dynamic var name: String = ""
-    @objc dynamic var country: String = ""
-    @objc dynamic var id: Int = 0
+    @objc dynamic var name = ""
+    @objc dynamic var country = ""
+    @objc dynamic var id = 0
 
     convenience init(name: String, country: String, id: Int) {
         self.init()
@@ -34,9 +21,15 @@ struct Cities {
         self.country = country
         self.id = id
     }
-
-    override static func primaryKey() -> Int? {
-        return id
-    }
 }
+
+/*
+   override static func primaryKey() -> Int? {
+       return id
+   }
 */
+
+struct Coordinates {
+    let latitude: Double
+    let longitude: Double
+}

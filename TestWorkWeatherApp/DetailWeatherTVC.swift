@@ -86,4 +86,9 @@ class DetailWeatherTVC: UITableViewController {
         }
     }
     
+    //MARK: - Navigation
+    @IBAction func backToListBtnPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

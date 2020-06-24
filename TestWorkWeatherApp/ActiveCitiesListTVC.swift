@@ -8,15 +8,13 @@
 
 import UIKit
 import CoreLocation
+import RealmSwift
 
 class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
     
-    var citiesList: [Cities] = [Cities(name: "San Francisco", country: "US", id: 5391959),
-                                Cities(name: "Kiev", country: "UA", id: 703448),
-                                Cities(name: "Belgorod", country: "RU", id: 578072),
-                                Cities(name: "Brest", country: "BY", id: 629634)]
+    var storedCities: Results<Cities>!
+    var citiesList: [Cities] = []
     
-    //var citiesList: Results<Cities>!
     
     static let weatherManager = APIWeatherManager(apiKey: "8ed4a42d3c54264f52124709334fd797")
     
@@ -27,6 +25,7 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
     
     
     @IBAction func refreshBtnPressed(_ sender: UIBarButtonItem) {
+        refreshEveryHour()
     }
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -37,10 +36,21 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        storedCities = realm.objects(Cities.self)
+        
         setupSearchBar()
         
         //Locating on startup
         checkLocationServices()
+        
+        //Filling array of active cities
+        
+        if !storedCities.isEmpty {
+            for city in storedCities {
+                let transfer = Cities(name: city.name, country: city.country, id: city.id)
+                citiesList.append(transfer)
+            }
+        }
         
         
         setupTimer()
@@ -118,6 +128,50 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
+    func searchCity(searchString: String) {
+        DispatchQueue.global(qos: .userInitiated).sync {
+            ActiveCitiesListTVC.weatherManager.fetchCurrentWeatherWithSearch(searchString: searchString) { (result) in
+                
+                switch result {
+                case .Success(let currentWeather):
+                    /*
+                     if currentWeather.code == 404 {
+                     
+                     DispatchQueue.main.async {
+                     self.showAlert(title: "City not found", message: "Check the entered data correction")
+                     }
+                     
+                     } else {
+                     
+                     }
+                     */
+                    
+                    
+                    //Saving new city to DB
+                    DispatchQueue.global(qos: .userInteractive).sync {
+                        
+                        let newCity = Cities(name: currentWeather.city, country: currentWeather.country, id: currentWeather.id)
+                        
+                        StorageManager.saveObject(newCity)
+                        self.citiesList.insert(newCity, at: 1)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                    
+                case .Failure(let error as NSError):
+                    
+                    let alertController = UIAlertController(title: "Unable to get data ", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
     
     //MARK: - Updating UI
     
@@ -159,44 +213,6 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
      }
      */
     
-    func searchCity(searchString: String) {
-        DispatchQueue.global(qos: .userInitiated).sync {
-            ActiveCitiesListTVC.weatherManager.fetchCurrentWeatherWithSearch(searchString: searchString) { (result) in
-                
-                switch result {
-                case .Success(let currentWeather):
-                    
-                    if currentWeather.code == 404 {
-                        
-                        DispatchQueue.main.async {
-                            self.showAlert(title: "City not found", message: "Check the entered data correction")
-                        }
-                        
-                    } else {
-                        
-                        //
-                        //TODO add to DB
-                        //
-                        
-                        self.citiesList.insert(Cities(name: currentWeather.city, country: currentWeather.country, id: currentWeather.id), at: 1)
-                        
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    }
-                    
-                case .Failure(let error as NSError):
-                    
-                    let alertController = UIAlertController(title: "Unable to get data ", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertController.addAction(okAction)
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    
     
     func getCurrentWeatherData(coordinates: Coordinates) {
         
@@ -234,7 +250,7 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
             ActiveCitiesListTVC.sharedId = self.citiesList[indexPath[1]].id
             self.performSegue(withIdentifier: "detailSegue", sender: nil)
         }
-    
+        
         self.performSegue(withIdentifier: "detailSegue", sender: nil)
         
         tableView.deselectRow(at: indexPath, animated: true)
