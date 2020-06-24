@@ -12,6 +12,11 @@ class ListActiveCitiesTVC: UITableViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var citiesList: Results<Cities>!
+    lazy var weatherManager = APIWeatherManager(apiKey: "8ed4a42d3c54264f52124709334fd797")
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
