@@ -153,7 +153,7 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
                         let newCity = Cities(name: currentWeather.city, country: currentWeather.country, id: currentWeather.id)
                         
                         StorageManager.saveObject(newCity)
-                        self.citiesList.insert(newCity, at: 1)
+                        self.citiesList.isEmpty ? self.citiesList.insert(newCity, at: 0) : self.citiesList.insert(newCity, at: 1)
                     }
                     
                     DispatchQueue.main.async {
