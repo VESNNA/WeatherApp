@@ -312,13 +312,15 @@ class ActiveCitiesListTVC: UITableViewController, UISearchBarDelegate {
     }
     
     private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: "Your location is not available",
-                                      message: "To give permission go to: Settings -> WeatherApp -> Location and restart the app",
+        let alert = UIAlertController(title: title,
+                                      message: message,
                                       preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default)
         
         alert.addAction(ok)
-        self.present(alert, animated: true)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
     }
     
     
